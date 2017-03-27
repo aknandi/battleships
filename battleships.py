@@ -23,7 +23,6 @@ def generate_ship_position(dim):
     return [ship_row,ship_column]
 
 def valid_ship_position(new_ship_position):
-    count = 0
     is_valid = True
     for current_ship in ship_positions:
         is_valid = compare(current_ship,new_ship_position)
@@ -55,12 +54,13 @@ for i in range(number_of_ships):
         new_ship = generate_ship_position(dimension)
     ship_positions.append(new_ship)
 
+print "There are", number_of_ships, "battleships"
+
 turn = 0
 while turn < number_of_turns:
-#for turn in range(number_of_turns):
     print "Turn", turn+1
-    guess_row = int(raw_input("Guess Row: "))
-    guess_column = int(raw_input("Guess Column: "))
+    guess_row = int(raw_input("Guess Row (0 to "+str(dimension - 1)+"): "))
+    guess_column = int(raw_input("Guess Column (0 to "+str(dimension - 1)+"): "))
     guess_position = [guess_row,guess_column]
     if ship_hit(guess_position):
         print "Congratulations! You sunk a battleship!"
@@ -76,7 +76,7 @@ while turn < number_of_turns:
         elif (board[guess_row][guess_column] == "X" or board[guess_row][guess_column] == "-"):
             print "You guessed that one already"
         else:
-            print "You missed my battleship!"
+            print "You missed my battleships!"
             board[guess_row][guess_column] = "-"
     print_board(board)
     turn += 1
