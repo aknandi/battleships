@@ -1,6 +1,5 @@
 """
 Possible Extensions:
- Multiple battleships
  Different size battleships
  Two player game
  Rematches and statistics
@@ -26,13 +25,13 @@ def generate_ship_position(dim):
 
 def can_add_ship(new_ship):
     for current_ship in ship_positions:
-        if current_ship.isTouching(new_ship):
+        if current_ship.is_touching(new_ship):
             return False
     return True
 
 def ship_hit(guess):
     for ship in ship_positions:
-        if ship.isOccupyingPosition(guess):
+        if ship.is_occupying_position(guess):
             return True
     return False
 
@@ -75,4 +74,5 @@ while turn < number_of_turns:
     print_board(board)
     turn += 1
 
-print "Game Over :("
+if len(ship_positions) > 0:
+    print "Game Over :("
