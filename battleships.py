@@ -5,17 +5,8 @@ Possible Extensions:
  Rematches and statistics
 """
 from random import randint
+from Board import Board
 from Ship import Ship
-
-def initialise_board(dim):
-    board = []
-    for i in range(dim):
-        board.append(["O"]*dim)
-    return board
-
-def print_board(board):
-    for row in board:
-        print " ".join(row)
 
 def generate_ship_position(dim):
     ship_row = randint(0,dimension - 1)
@@ -38,8 +29,9 @@ def ship_hit(guess):
 dimension = 4
 number_of_turns = 4
 number_of_ships = 4
-board = initialise_board(dimension)
-print_board(board)
+board = Board(dimension)
+print board
+
 ship_positions = []
 for i in range(number_of_ships):
     new_ship = generate_ship_position(dimension)
@@ -56,22 +48,22 @@ while turn < number_of_turns:
     guess_column = int(raw_input("Guess Column (0 to "+str(dimension - 1)+"): "))
     guess_position = [guess_row,guess_column]
     
-    if (guess_row < 0 or guess_row > dimension - 1) or (guess_column < 0 or guess_column > dimension - 1):
+    if not board.has_position(guess_position):
         print "Oops, that's not even in the ocean"
-    elif (board[guess_row][guess_column] == "X" or board[guess_row][guess_column] == "-"):
+    elif (board.get_cell(guess_position) == "X" or board.get_cell(guess_position) == "-"):
         print "You guessed that one already"
     elif ship_hit(guess_position):
         print "Congratulations! You sunk a battleship!"
         number_of_turns += 1
-        board[guess_row][guess_column] = "X"
+        board.set_cell(guess_position,"X")
         ship_positions.remove(Ship([guess_row,guess_column]))
         if ship_positions == []:
             print "You have sunk all the battleships!"
             break
     else:
         print "You missed my battleships!"
-        board[guess_row][guess_column] = "-"
-    print_board(board)
+        board.set_cell(guess_position,"-")
+    print board
     turn += 1
 
 if len(ship_positions) > 0:
