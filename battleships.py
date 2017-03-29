@@ -1,6 +1,5 @@
 """
 Possible Extensions:
- Different size battleships
  Two player game
  Rematches and statistics
 """
@@ -30,6 +29,11 @@ def generate_ship(dimension,length):
         ship = generate_ship(dimension,length)
         return ship
 
+def get_position_from_user_input(guess_space):
+    guess_row = board.letters.index(guess_space[0])
+    guess_column = int(guess_space[1])
+    return [guess_row,guess_column]
+
 def can_add_ship(new_ship):
     for current_ship in ship_positions:
         if current_ship.is_touching(new_ship):
@@ -48,7 +52,7 @@ def get_ship_hit(guess):
 dimension = 5
 number_of_turns = 4
 # An element of [m,n] means m battleships of size n
-initial_ships = [[1,3],[1,2],[3,1]]
+initial_ships = [[0,5],[0,4],[1,3],[1,2],[3,1]]
 board = Board(dimension)
 print board
 
@@ -73,10 +77,8 @@ for number_of_ships,size_of_ship in initial_ships:
 turn = 0
 while turn < number_of_turns:
     print "Turn", turn+1
-    guess_row = board.letters.index(raw_input("Guess Row (A to "+board.letters[dimension - 1]+"): "))
-    guess_column = int(raw_input("Guess Column (0 to "+str(dimension - 1)+"): "))
-    guess_position = [guess_row,guess_column]
-    
+    guess_space = raw_input("Guess position (e.g. A0) : ")
+    guess_position = get_position_from_user_input(guess_space)    
     if not board.has_position(guess_position):
         print "Oops, that's not even in the ocean"
     elif (board.get_cell(guess_position) == "X" or board.get_cell(guess_position) == "-"):
