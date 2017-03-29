@@ -17,7 +17,9 @@ class Board():
            and position[1] >= 0 and position[1] <= self.dimension - 1)
    
    def __str__(self):
-       output = ""
+       output = "  " + " ".join([str(x) for x in range(0,self.dimension)]) + "\n"
+       row_number = 0
        for row in self.board:
-           output += " ".join(row) + "\n"
+           output += str(row_number) + " " + " ".join(row) + "\n"
+           row_number += 1
        return output
