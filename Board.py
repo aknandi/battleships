@@ -3,6 +3,7 @@ class Board():
    def __init__(self, dimension):
        self.dimension = dimension
        self.board = []
+       self.letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N"]
        for i in range(dimension):
            self.board.append(["O"]*dimension)
     
@@ -20,6 +21,6 @@ class Board():
        output = "  " + " ".join([str(x) for x in range(0,self.dimension)]) + "\n"
        row_number = 0
        for row in self.board:
-           output += str(row_number) + " " + " ".join(row) + "\n"
+           output += self.letters[row_number] + " " + " ".join(row) + "\n"
            row_number += 1
        return output

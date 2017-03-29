@@ -73,7 +73,7 @@ for number_of_ships,size_of_ship in initial_ships:
 turn = 0
 while turn < number_of_turns:
     print "Turn", turn+1
-    guess_row = int(raw_input("Guess Row (0 to "+str(dimension - 1)+"): "))
+    guess_row = board.letters.index(raw_input("Guess Row (A to "+board.letters[dimension - 1]+"): "))
     guess_column = int(raw_input("Guess Column (0 to "+str(dimension - 1)+"): "))
     guess_position = [guess_row,guess_column]
     
