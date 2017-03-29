@@ -37,15 +37,13 @@ def can_add_ship(new_ship):
     return True
 
 def is_ship_hit(guess):
-    for ship in ship_positions:
-        if ship.is_occupying_position(guess):
-            return True
-    return False
+    return get_ship_hit(guess) is not None
 
 def get_ship_hit(guess):
     for ship in ship_positions:
         if ship.is_occupying_position(guess):
             return ship
+    return None
 
 dimension = 5
 number_of_turns = 4
