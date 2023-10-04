@@ -54,7 +54,7 @@ number_of_turns = 4
 # An element of [m,n] means m battleships of size n
 initial_ships = [[0,5],[0,4],[1,3],[1,2],[3,1]]
 board = Board(dimension)
-print board
+print(board)
 
 ship_positions = []
 for number_of_ships,size_of_ship in initial_ships:
@@ -64,43 +64,43 @@ for number_of_ships,size_of_ship in initial_ships:
         while (not can_add_ship(new_ship)):
             count += 1
             if count > 10:
-                print "Cannot fit battleships on board. Try running again or reduce the number of battleships\n"
+                print("Cannot fit battleships on board. Try running again or reduce the number of battleships\n")
                 sys.exit()
             new_ship = generate_ship(dimension,size_of_ship)
         ship_positions.append(new_ship)
 
-print "There are:"
+print("There are:")
 for number_of_ships,size_of_ship in initial_ships:
-    print "\t" + str(number_of_ships) + " battleships of size " + str(size_of_ship)
+    print("\t" + str(number_of_ships) + " battleships of size " + str(size_of_ship))
 
 #print ship_positions
 turn = 0
 while turn < number_of_turns:
-    print "Turn", turn+1
-    guess_space = raw_input("Guess position (e.g. A0) : ")
+    print("Turn", turn+1)
+    guess_space = input("Guess position (e.g. A0) : ")
     guess_position = get_position_from_user_input(guess_space)    
     if not board.has_position(guess_position):
-        print "Oops, that's not even in the ocean"
+        print("Oops, that's not even in the ocean")
     elif (board.get_cell(guess_position) == "X" or board.get_cell(guess_position) == "-"):
-        print "You guessed that one already"
+        print("You guessed that one already")
     elif is_ship_hit(guess_position):
-        print "Congratulations! You hit a battleship!"
+        print("Congratulations! You hit a battleship!")
         number_of_turns += 1
         board.set_cell(guess_position,"X")
         ship_hit = get_ship_hit(guess_position)
         ship_hit.hits += 1
         if ship_hit.hits == ship_hit.get_length():
             ship_positions.remove(ship_hit)
-            print "Congratulations! You sunk a whole battleship!"
+            print("Congratulations! You sunk a whole battleship!")
         if ship_positions == []:
-            print board
-            print "You have sunk all the battleships!"
+            print(board)
+            print("You have sunk all the battleships!")
             break
     else:
-        print "You missed my battleships!"
+        print("You missed my battleships!")
         board.set_cell(guess_position,"-")
-    print board
+    print(board)
     turn += 1
 
 if len(ship_positions) > 0:
-    print "Game Over :("
+    print("Game Over :(")
